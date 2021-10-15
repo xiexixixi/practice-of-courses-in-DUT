@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1512311927 source:c:\users\lenovo\desktop\codeblocks\´ò·É»ú\main.c
+	<stdio.h>
+	<windows.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+
