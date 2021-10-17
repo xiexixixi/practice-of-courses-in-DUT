@@ -1,0 +1,131 @@
+配置集线器Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#interface FastEthernet0/1
+Switch(config-if)#
+Switch(config-if)#exit
+Switch(config)#vlan 2
+Switch(config-vlan)#name vlan2
+Switch(config-vlan)#exit
+Switch(config)#vlan 3
+Switch(config-vlan)#name vlan3
+Switch(config-vlan)#exit
+Switch(config)#interface FastEthernet0/1
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/2
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/3
+Switch(config-if)#switchport access vlan 3
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/4
+Switch(config-if)#switchport access vlan 3
+
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/5
+Switch(config-if)#switchport mode trunk
+
+
+修改路由GigabitEthernet0/0(连接交换机的一端)
+
+单臂路由配置
+Router(config)#interface g0/0.1
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.1, changed state to up
+
+Router(config-subif)#encapsulation dot1q 2
+Router(config-subif)#ip address 192.168.1.254 255.255.255.0
+Router(config-subif)#interface g0/0.2
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.2, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.2, changed state to up
+
+Router(config-subif)#encapsulation dot1q 3
+Router(config-subif)#ip address 192.168.3.254 255.255.255.0
+Router(config-subif)#interface g0/0
+Router(config-if)#no shutdown
+
+router2:
+Router(config-subif)#exit
+Router(config)#interface g0/0.2
+Router(config-subif)#interface g0/0.1
+Router(config-subif)#exit
+Router(config)#interface g0/0.1
+Router(config-subif)#encapsulation dot1q 2
+Router(config-subif)#ip address 192.168.4.254 255.255.255.0
+Router(config-subif)#interface g0/0.2
+Router(config-subif)#encapsulation dot1q 3
+Router(config-subif)#ip address 192.168.5.254 255.255.255.0
+
+0/1配置
+Router(config)#ip route 192.168.16.198 255.255.255.252 192.168.16.194
+%Inconsistent address and mask
+Router(config)#
+Router>en
+Router#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#ip address 192.168.2.1 255.255.255.0
+Router(config-if)#
+修改路由GigabitEthernet0/1(连接路由的一端)
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface GigabitEthernet0/1
+Router(config-if)#ip address 192.168.16.194 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config-if)#exit
+
+添加静态：
+Router(config)#ip route 192.168.1.0 255.255.255.0 192.168.16.193
+Router(config)#ip route 192.168.3.0 255.255.255.0 192.168.16.193
+Router(config)#
+
+Router(config)#ip route 192.168.4.0 255.255.255.0 192.168.16.194
+Router(config)#ip route 192.168.5.0 255.255.255.0 192.168.16.194
+Router(config)#
+同上
+Router>en
+Router#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#inter
+Router(config)#interface G
+Router(config)#interface GigabitEthernet 0/0
+Router(config-if)#ip address 192.168.16.190 255.255.255.248
+Router(config-if)#exit
+Router(config)#int
+Router(config)#interface G
+Router(config)#interface GigabitEthernet 0/1
+Router(config-if)#ip address 192.168.16.194 255.255.255.252
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+%IP-4-DUPADDR: Duplicate address 192.168.16.194 on GigabitEthernet0/1, sourced by 0002.17B2.3502
+%IP-4-DUPADDR: Duplicate address 192.168.16.194 on GigabitEthernet0/1, sourced by 0002.17B2.3502
+
+
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#ip address 192.168.16.197 255.255.255.252
+
+设置下一跳：
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip route 192.168.1.0 255.255.255.0 192.168.16.193
+Router(config)#
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#
+Router(config)#ip route 192.168.3.0 255.255.255.0 192.168.16.193
+Router(config)#
+
+
+

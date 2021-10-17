@@ -1,0 +1,67 @@
+配置路由器
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface Serial0/0/0
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial0/0/0, changed state to down
+Router(config-if)#ip address 30.0.0.1 255.0.0.0
+Router(config-if)#exit
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#ip address 192.168.0.2 255.255.255.0
+Router(config-if)#exit
+Router(config)#interface GigabitEthernet0/1
+Router(config-if)#ip address 20.0.0.1 255.0.0.0
+Router(config-if)#
+
+第二个
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#ip address 192.168.1.2 255.255.255.0
+Router(config-if)#
+Router(config-if)#exit
+Router(config)#interface GigabitEthernet0/1
+Router(config-if)#ip address 10.0.0.2 255.0.0.0
+Router(config-if)#
+Router(config-if)#exit
+Router(config)#interface Serial0/0/0
+Router(config-if)#ip address 30.0.0.2 255.0.0.0
+Router(config-if)#
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#ip address 10.0.0.1 255.0.0.0
+Router(config-if)#
+Router(config-if)#exit
+Router(config)#interface GigabitEthernet0/1
+Router(config-if)#ip address 20.0.0.2 255.0.0.0
+Router(config-if)#
+
+
+配置3台router的rip
+Router(config-if)#exit
+Router(config)#router rip
+Router(config-router)#network 20.0.0.0
+Router(config-router)#network 10.0.0.0
+Router(config-router)#
+
+Router(config)#router rip
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 30.0.0.0
+Router(config-router)#network 10.0.0.0
+Router(config-router)#
+
+Router(config)#router rip
+Router(config-router)#network 192.168.1.0
+Router(config-router)#network 30.0.0.0
+Router(config-router)#network 10.0.0.0
+Router(config-router)#
+
+经过几次rip更新之后，查看路由表
+

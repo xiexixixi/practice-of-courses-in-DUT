@@ -1,0 +1,47 @@
+创建VLAN2，VLAN3，并添加Fa为相应VLAN：
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#interface FastEthernet0/1
+Switch(config-if)#
+Switch(config-if)#exit
+Switch(config)#vlan 2
+Switch(config-vlan)#name vlan2
+Switch(config-vlan)#exit
+Switch(config)#vlan 3
+Switch(config-vlan)#name vlan3
+Switch(config-vlan)#exit
+Switch(config)#
+Switch(config)#interface FastEthernet0/1
+Switch(config-if)#
+Switch(config-if)#
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/2
+Switch(config-if)#
+Switch(config-if)#
+Switch(config-if)#switchport access vlan 2
+Switch(config-if)#
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/3
+Switch(config-if)#
+Switch(config-if)#
+Switch(config-if)#switchport access vlan 3
+Switch(config-if)#
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet0/4
+Switch(config-if)#
+Switch(config-if)#
+Switch(config-if)#switchport access vlan 3
+Switch(config-if)#exit
+
+配置VLAN
+Switch(config-if)#interface range Fa0/1-2
+Switch(config-if-range)#switch access vlan 2
+Switch(config-if-range)#exit
+Switch(config)#interface range Fa0/3-4
+Switch(config-if-range)#switch access vlan 3
+Switch(config-if-range)#
+
